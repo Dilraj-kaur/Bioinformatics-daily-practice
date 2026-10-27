@@ -1,6 +1,18 @@
+# Python virtual environments
 .venv/
+venv/
+
+# Python cache files
 __pycache__/
-.pytest_cache/
 *.pyc
-.DS_Store
+.pytest_cache/
+
+# Jupyter Notebook
 .ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Environment variables and secrets
+.env
+.env.*

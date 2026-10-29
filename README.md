@@ -79,6 +79,26 @@ These practices provide a foundation for more complex clinical bioinformatics wo
 - pytest
 - Git and GitHub
 
-## Future Development
+### Day 3 — FASTA File Parsing
 
-Planned exercises include FASTA file parsing, sequence statistics, genomic variant processing, and further testing and documentation improvements.
+**Objective:** Develop a Python parser to read FASTA-formatted DNA sequences, including multiline sequence records.
+
+**Implementation:**
+- Read FASTA files using Python file handling.
+- Extract sequence identifiers from FASTA headers.
+- Combine multiline sequences into continuous DNA strings.
+- Normalise sequence characters to uppercase.
+- Store parsed sequences in a dictionary for downstream analysis.
+
+**Files:**
+- `python/sequencing/fasta_parser.py`
+- `data/example/example.fasta`
+
+**Run:**
+```bash
+python3 python/sequencing/fasta_parser.py
+```
+
+**Clinical bioinformatics relevance:** FASTA parsing is a foundational operation in genomic sequence analysis. Correctly handling sequence records is important for reliable downstream bioinformatics workflows.
+
+**Next improvement:** Add automated tests and validation for malformed headers, duplicate identifiers, and invalid sequence characters.

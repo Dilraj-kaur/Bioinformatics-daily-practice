@@ -1,10 +1,26 @@
 
 def parse_fasta(filepath: str) -> dict[str, str]:
-    """Read a FASTA file and return sequence IDs and DNA sequences."""
+    """Read a FASTA file and validate unambiguous DNA sequences."""
 
     sequences = {}
     current_id = None
     current_sequence = []
+
+    def save_sequence():
+        if current_id is None:
+            return
+
+        sequence = "".join(current_sequence)
+
+        if not sequence:
+            raise ValueError(f"Empty sequence for {current_id}")
+
+        valid_bases = {"A", "C", "G", "T"}
+
+        if not set(sequence).issubset(valid_bases):
+            raise ValueError(f"Invalid DNA bases in {current_id}")
+
+        sequences[current_id] = sequence
 
     with open(filepath, "r", encoding="utf-8") as file:
         for line in file:
@@ -14,10 +30,19 @@ def parse_fasta(filepath: str) -> dict[str, str]:
                 continue
 
             if line.startswith(">"):
-                if current_id is not None:
-                    sequences[current_id] = "".join(current_sequence)
+                save_sequence()
 
-                current_id = line[1:].split()[0]
+                parts = line[1:].split()
+
+                if not parts:
+                    raise ValueError("FASTA header has no identifier")
+
+                new_id = parts[0]
+
+                if new_id in sequences:
+                    raise ValueError(f"Duplicate FASTA ID: {new_id}")
+
+                current_id = new_id
                 current_sequence = []
 
             else:
@@ -26,8 +51,7 @@ def parse_fasta(filepath: str) -> dict[str, str]:
 
                 current_sequence.append(line.upper())
 
-    if current_id is not None:
-        sequences[current_id] = "".join(current_sequence)
+    save_sequence()
 
     return sequences
 

@@ -102,3 +102,31 @@ python3 python/sequencing/fasta_parser.py
 **Clinical bioinformatics relevance:** FASTA parsing is a foundational operation in genomic sequence analysis. Correctly handling sequence records is important for reliable downstream bioinformatics workflows.
 
 **Next improvement:** Add automated tests and validation for malformed headers, duplicate identifiers, and invalid sequence characters.
+
+### Day 4 — FASTA Parser Validation and Automated Testing
+
+**Objective:** Improve the reliability of the FASTA parser through input validation and automated unit testing.
+
+**Implementation:**
+- Added validation for missing sequence identifiers.
+- Detected duplicate FASTA sequence identifiers.
+- Added error handling for empty sequence records.
+- Rejected invalid DNA characters outside the accepted A, C, G and T alphabet.
+- Preserved support for multiline FASTA sequences and lowercase input.
+
+**Automated testing:**
+
+Created `tests/test_fasta_parser.py` with nine tests covering valid inputs, multiline records, multiple sequences, lowercase characters and malformed FASTA data.
+
+**Validation results:**
+- FASTA parser tests: 9 passed
+- GC content calculator tests: 6 passed
+- **Total: 15 tests passed**
+
+**Command:** `python3 -m pytest -q`
+
+**Clinical bioinformatics relevance:**
+
+Explicit input validation helps prevent silent data loss and unexpected downstream results. Automated tests support reproducibility, traceability and reliable bioinformatics software development.
+
+**Current limitation:** The parser currently supports unambiguous DNA bases (A, C, G and T). Support for IUPAC ambiguity codes and additional FASTA edge cases is planned for future development.
